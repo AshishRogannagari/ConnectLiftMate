@@ -70,6 +70,7 @@ If you find ConnectLiftMate useful, give it a ⭐ on GitHub and share it with ot
 
 - GitHub: [https://github.com/aashish-connectliftmate](https://github.com/aashish-connectliftmate)
 - Feedback / Issues: Please open an issue in this repository
+- website:[connectliftmate](https://connectliftmate.com)
 
 ---
 

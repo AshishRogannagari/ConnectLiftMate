@@ -1,1 +1,334 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ConnectLiftMate – Free Chrome Extension</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><style>body{margin:0;padding:0;font-family:Inter,sans-serif;background:linear-gradient(135deg,#edf1ff,#dbe6ff);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:2rem}.container{max-width:850px;width:100%;background:#fff;padding:3rem;border-radius:24px;box-shadow:0 25px 45px rgba(85,110,255,.1);border:1px solid #c9d7ff;text-align:center}h1{font-size:2.5rem;margin-bottom:1.5rem;color:#2a2a40}p{font-size:1.1rem;line-height:1.8;color:#3f3f55;margin-bottom:1.5rem}.button{display:inline-block;padding:.85rem 1.8rem;background-color:#3b5bdb;color:#fff;border:none;border-radius:10px;font-weight:600;text-decoration:none;font-size:1rem;transition:all .3s ease}.button:hover{background-color:#2748c7}.footer{margin-top:2.5rem;font-size:.9rem;color:#777}.footer a{color:#3b5bdb;text-decoration:none}.footer a:hover{text-decoration:underline}</style></head><body><div class="container"><h1>ConnectLiftMate – Free Chrome Extension</h1><p>Stop copy-pasting on LinkedIn. Save and reuse your favorite notes, messages, and Boolean search queries in one click.</p><p><strong>ConnectLiftMate</strong>is a lightweight Chrome extension co-created by<strong>Aashish and Surya</strong>to help students, jobseekers, and professionals save time, simplify LinkedIn outreach, and stay productive — all with a beautiful, distraction-free SaaS-style interface.</p><a class="button" href="https://chromewebstore.google.com/detail/connectliftmate/kbagmgoojogjfmcmnhlihjmkfcadambe" target="_blank">Get it on Chrome Web Store</a><div class="footer"><p>🔒<a href="https://privacy.connectliftmate.com/" target="_blank">View our Privacy Policy</a></p><a href="https://tools.connectliftmate.com/" target="_blank">Click here to know more</p></div></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ConnectLiftMate – LinkedIn Assistant Chrome Extension</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0W6KFB6GJF"></script>
+    <script>function gtag() { dataLayer.push(arguments) } window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "G-0W6KFB6GJF")</script>
+    <link rel="icon" type="image/png" href="assests/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: linear-gradient(135deg, #e5ebff, #f3f6ff);
+            --bg-dark: #0e1629;
+            --text-light: #2a2a40;
+            --text-dark: #f0f0f0;
+            --card-light: #ffffff;
+            --card-dark: #1e2636
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            position: relative;
+            overflow-x: hidden;
+            transition: background .3s ease, color .3s ease
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark)
+        }
+
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #3b5bdb 0, transparent 70%);
+            opacity: .4;
+            filter: blur(100px);
+            z-index: 0
+        }
+
+        .dark-toggle {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            background: #fff;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 9999;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+            transition: background .3s ease, box-shadow .3s ease
+        }
+
+        .dark-toggle:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .15)
+        }
+
+        body.dark-mode .dark-toggle {
+            background: #3b5bdb;
+            color: #fff
+        }
+
+        .feature-card,
+        .hero,
+        footer,
+        header {
+            background: var(--card-light);
+            transition: background .3s ease, color .3s ease
+        }
+
+        body.dark-mode .feature-card,
+        body.dark-mode .hero,
+        body.dark-mode footer,
+        body.dark-mode header {
+            background: var(--card-dark);
+            color: var(--text-dark)
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            border-bottom: 1px solid #e0e7ff;
+            box-shadow: 0 4px 12px rgba(85, 110, 255, .08);
+            position: relative;
+            z-index: 1
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: .8rem
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #3b5bdb
+        }
+
+        nav a {
+            margin-left: 2rem;
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color .3s ease
+        }
+
+        nav a:hover {
+            color: #3b5bdb
+        }
+
+        .hero {
+            max-width: 960px;
+            margin: 4rem auto;
+            text-align: center;
+            padding: 3.5rem 3rem;
+            border-radius: 28px;
+            box-shadow: 0 30px 60px rgba(85, 110, 255, .1);
+            border: 1px solid #c9d7ff;
+            z-index: 1
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to right, #3b5bdb, #5e8aff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 2rem
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(to right, #3b5bdb, #5e8aff);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(59, 91, 219, .25);
+            transition: all .3s ease
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(to right, #2748c7, #4d75e0)
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+            color: #3b5bdb
+        }
+
+        .features,
+        .upcoming {
+            max-width: 1100px;
+            margin: 0 auto 4rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem
+        }
+
+        .feature-card {
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .06);
+            border: 1px solid #e4eaff;
+            text-align: center;
+            transition: transform .3s ease
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px)
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #3b5bdb
+        }
+
+        .feature-card p {
+            font-size: 1rem
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem 3rem;
+            border-top: 1px solid #e0e7ff;
+            text-align: center;
+            font-size: .95rem;
+            color: inherit
+        }
+
+        footer a {
+            color: #3b5bdb;
+            text-decoration: none;
+            margin: 0 .5rem
+        }
+
+        footer a:hover {
+            text-decoration: underline
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            font-size: .85rem;
+            color: #888
+        }
+    </style>
+    <script>function toggleDarkMode() { document.body.classList.toggle("dark-mode") }</script>
+</head>
+
+<body>
+    <div class="dark-toggle" onclick="toggleDarkMode()">🌙</div>
+    <div class="glow-bg"></div>
+    <header>
+        <div class="logo-container"><img src="assests/logo.png" alt="ConnectLiftMate Logo" class="logo-img">
+            <div class="logo-text">ConnectLiftMate</div>
+        </div>
+        <nav><a href="#features">Features</a><a href="#upcoming">Upcoming</a><a
+                href="https://chromewebstore.google.com/detail/connectliftmate/kbagmgoojogjfmcmnhlihjmkfcadambe"
+                target="_blank">Get Extension</a><a href="https://tools.connectliftmate.com/"
+                target="_blank">Tools</a><a href="https://tools.connectliftmate.com/support" target="_blank">Support</a>
+        </nav>
+    </header>
+    <section class="hero">
+        <h1>Stop Copy-Pasting on LinkedIn!</h1>
+        <p><strong>ConnectLiftMate</strong>is a smart, no-login Chrome Extension to save and reuse your notes, messages
+            & search queries — without switching tabs, Google Docs, or Notion again.</p><a class="cta-button"
+            href="https://chromewebstore.google.com/detail/connectliftmate/kbagmgoojogjfmcmnhlihjmkfcadambe"
+            target="_blank">🚀 Add to Chrome – No Signup Needed</a>
+        <div style="margin-top:1.5rem;font-size:1rem;color:#3f3f55">
+            <p>✅ No Sign In | ✅ No Privacy Issues | ✅ Install & Start Using Instantly</p>
+            <p>✨ Say goodbye to tab-switching and messy copy-paste routines.</p>
+        </div>
+    </section>
+    <h2 class="section-heading">Powerful Features</h2>
+    <section class="features" id="features">
+        <div class="feature-card">
+            <h3>📌 Save Notes</h3>
+            <p>Store and reuse your best connection notes instantly.</p>
+        </div>
+        <div class="feature-card">
+            <h3>⚡ One-Click Notes</h3>
+            <p>Insert your saved notes directly into LinkedIn with one click.</p>
+        </div>
+        <div class="feature-card">
+            <h3>💬 Message Templates</h3>
+            <p>Craft polished messages and insert them in one click.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔍 Boolean Builder</h3>
+            <p>Generate powerful LinkedIn search queries effortlessly.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🗃 Export/Import Data</h3>
+            <p>Seamless backup or transfer of your saved templates.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎯 Smart UI</h3>
+            <p>SaaS-style, modern, distraction-free interface.</p>
+        </div>
+    </section>
+    <h2 class="section-heading">🚀 Upcoming Features</h2>
+    <section class="upcoming" id="upcoming">
+        <div class="feature-card">
+            <h3>📊 Job Tracker</h3>
+            <p>Track how many jobs you’ve applied over time and stay organized.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📈 Analytics Dashboard</h3>
+            <p>Track how many notes/messages you’ve used over time with visual insights.</p>
+        </div>
+        <div class="feature-card">
+            <h3>💼 Resume Booster Toolkit</h3>
+            <p>Access curated resume snippets, keyword tips & layout templates.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🧠 AI Message Suggestions</h3>
+            <p>Coming soon: AI-powered message drafts and personalization tips.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🔔 Notification Reminders</h3>
+            <p>Get timely nudges to reach out or follow-up on LinkedIn conversations.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🗓️ Weekly Productivity Reports</h3>
+            <p>Receive a weekly summary of your activity and usage highlights.</p>
+        </div>
+    </section>
+    <footer>
+        <div>🔒<a href="https://privacy.connectliftmate.com/" target="_blank">Privacy Policy</a>|<a
+                href="https://tools.connectliftmate.com/" target="_blank">Tools</a>|<a
+                href="https://tools.connectliftmate.com/support/" target="_blank">Support</a>|<a
+                href="mailto:support@connectliftmate.com">Contact Us</a></div>
+        <div class="footer-note">© 2025 ConnectLiftMate. Built with 💙 by Aashish & Surya.</div>
+    </footer>
+</body>
+
+</html>
