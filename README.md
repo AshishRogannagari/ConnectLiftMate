@@ -68,11 +68,9 @@ Connectlift Mate respects your privacy. All data is stored **locally in your bro
 ## 💙 Support & Feedback
 If you find Connectlift Mate useful, give it a ⭐ on GitHub and share it with others!
 
-- GitHub: [https://github.com/aashish-Connectlift Mate](https://github.com/aashish-Connectlift Mate)
 - Feedback / Issues: Please open an issue in this repository
 - website:[Connectlift Mate](https://ConnectliftMate.com)
 
 ---
 
 ## 🙌 We built Connectlift Mate with a simple goal  to make LinkedIn outreach feel less robotic and more human. It's designed to help people communicate more naturally and meaningfully, one message at a time.
-
