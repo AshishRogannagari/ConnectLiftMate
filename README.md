@@ -2,7 +2,7 @@
 
 # Connectlift Mate – Where Your Voice Meets Your Connections
 
-**Connectlift Mate** is a clean, modern, and completely free Chrome extension designed to solve the common problem of repetitive, time-consuming LinkedIn messaging. It simplifies outreach by helping users manage and insert their saved notes, messages, and Boolean search queries into LinkedIn fields with just one click. It helps you manage and insert your saved notes, messages, and Boolean search queries into LinkedIn fields with just one click — no more switching between docs or copy-pasting manually.
+**Connectlift Mate** is a clean, modern, and completely free Chrome extension designed to solve the common problem of repetitive, time-consuming LinkedIn messaging. It simplifies outreach by helping users manage and insert their saved notes, messages, and Boolean search queries into LinkedIn fields with just one click. It helps you manage and insert your saved notes, messages, and Boolean search queries into LinkedIn fields with just one click   no more switching between docs or copy-pasting manually.
 
 ---
 
