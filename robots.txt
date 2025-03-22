@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://connectliftmate.com/sitemap.xml
