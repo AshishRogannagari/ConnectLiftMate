@@ -13,35 +13,35 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tools.Connectliftmate.com/templates/</loc>
+    <loc>https://Connectliftmate.com/templates/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://tools.Connectliftmate.com/</loc>
+    <loc>https://Connectliftmate.com/why</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
  <url>
-    <loc>https://tools.Connectliftmate.com/tracker/</loc>
+    <loc>https://Connectliftmate.com/tracker/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://tools.Connectliftmate.com/support/</loc>
+    <loc>https://Connectliftmate.com/support/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://tools.Connectliftmate.com/faq/</loc>
+    <loc>https://Connectliftmate.com/faq/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://privacy.Connectliftmate.com/</loc>
+    <loc>https://Connectliftmate.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
