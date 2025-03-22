@@ -99,6 +99,11 @@
             color: #fff
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
+
         .feature-card,
         .hero,
         footer,
@@ -266,9 +271,90 @@
             font-size: .85rem;
             color: #888
         }
+
+        .faq-question {
+            color: #3b5bdb;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            display: none;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: inherit;
+            margin-top: 0.5rem;
+        }
+
+        body.dark-mode .faq-answer {
+            color: var(--text-dark);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #3b5bdb;
+            color: #fff;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 44px;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: none;
+            /* Hidden by default */
+            z-index: 9999;
+            transition: background 0.3s ease, opacity 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #2748c7;
+            opacity: 1;
+        }
+
+        .support-float-btn {
+            position: fixed;
+            bottom: 90px;
+            /* above your back-to-top button */
+            right: 30px;
+            background-color: #3b5bdb;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            transition: background 0.3s ease;
+            opacity: 0.92;
+        }
+
+        .support-float-btn:hover {
+            background-color: #2748c7;
+            opacity: 1;
+        }
     </style>
     <script>function toggleDarkMode() { document.body.classList.toggle("dark-mode") }</script>
     <link rel="canonical" href="https://connectliftmate.com/">
+    <script>
+        function toggleFaq(card) {
+            const answer = card.querySelector('.faq-answer');
+            const isVisible = answer.style.display === "block";
+
+            // Close all other answers
+            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = "none");
+
+            // Toggle current
+            answer.style.display = isVisible ? "none" : "block";
+        }
+    </script>
+
 
 </head>
 
@@ -302,6 +388,38 @@
             <p style="font-style: italic;">✨ Built not for profit, but for people.</p>
         </div>
     </section>
+    <!-- 🎥 DEMO VIDEO SECTION -->
+    <h2 class="section-heading">🎥 See It in Action</h2>
+    <div style="display: flex; justify-content: center; padding: 0 2rem; margin-bottom: 3rem;">
+        <div style="max-width: 960px; width: 100%;">
+            <div
+                style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                <iframe src="https://www.youtube.com/embed/vLqE42qOZdQ?si=fdqk1DCufNeD7Cfq" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen referrerpolicy="strict-origin-when-cross-origin"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 16px;">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- ⚙️ HOW IT WORKS SECTION -->
+    <h2 class="section-heading">⚙️ How It Works</h2>
+    <section class="features">
+        <div class="feature-card">
+            <h3>1️⃣ Add Extension</h3>
+            <p>Install from Chrome Web Store — no login required.</p>
+        </div>
+        <div class="feature-card">
+            <h3>2️⃣ Save Notes</h3>
+            <p>Quickly add your messages & templates.</p>
+        </div>
+        <div class="feature-card">
+            <h3>3️⃣ Insert on LinkedIn</h3>
+            <p>Click once to auto-insert notes & connect smoothly.</p>
+        </div>
+    </section>
 
     <h2 class="section-heading">Powerful Features</h2>
     <section class="features" id="features">
@@ -330,6 +448,46 @@
             <p>SaaS-style, modern, distraction-free interface.</p>
         </div>
     </section>
+    <!-- 💬 USER TESTIMONIALS SECTION -->
+    <h2 class="section-heading">💬 What Real Users Say</h2>
+    <section class="features" id="testimonials">
+        <div class="feature-card">
+            <p style="font-size:1rem;">"This extension keeps my LinkedIn messages personal and professional. Couldn’t be
+                happier!"</p>
+            <p><strong>– Olivia Harris</strong> ⭐⭐⭐⭐⭐</p>
+        </div>
+        <div class="feature-card">
+            <p style="font-size:1rem;">"It's a great extension if you're doing repetitive tasks daily. It will
+                definitely help in your job search."</p>
+            <p><strong>– Shiva Bandari</strong> ⭐⭐⭐⭐⭐</p>
+        </div>
+        <div class="feature-card">
+            <p style="font-size:1rem;">"If you're tired of sending robotic messages, ConnectLiftMate is the perfect
+                tool. It helps you stay authentic while saving time."</p>
+            <p><strong>– William Clark</strong> ⭐⭐⭐⭐⭐</p>
+        </div>
+        <div class="feature-card">
+            <p style="font-size:1rem;">"This extension saves me so much time. I can store and quickly reuse my notes
+                without the hassle of copy-pasting."</p>
+            <p><strong>– Sarah Johnson</strong> ⭐⭐⭐⭐⭐</p>
+        </div>
+        <div class="feature-card">
+            <p style="font-size:1rem;">"I can't imagine going back to manually typing connection requests.
+                ConnectLiftMate is a game-changer for anyone serious about networking!"</p>
+            <p><strong>– Michael Roberts</strong> ⭐⭐⭐⭐⭐</p>
+        </div>
+    </section>
+
+    <!-- Button to View More Reviews -->
+    <div style="text-align: center; margin-top: 1rem; margin-bottom: 3rem;">
+        <a href="https://chromewebstore.google.com/detail/connectliftmate/kbagmgoojogjfmcmnhlihjmkfcadambe/reviews"
+            target="_blank"
+            style="display: inline-block; background: #3b5bdb; color: #fff; padding: 10px 20px; border-radius: 8px; text-decoration: none;">
+            ⭐ View More Reviews on Chrome Web Store
+        </a>
+    </div>
+
+
     <h2 class="section-heading">🚀 Upcoming Features</h2>
     <section class="upcoming" id="upcoming">
         <div class="feature-card">
@@ -375,52 +533,149 @@
         </div>
     </section>
 
-    <!-- SPREAD THE WORD SECTION -->
-    <h2 class="section-heading">💬 Spread the Word</h2>
+    <h2 class="section-heading">💌 Spread the Word</h2>
     <section class="features" id="spread-the-word">
         <div class="feature-card" style="grid-column: span 2; max-width: 100%; text-align: center;">
             <p style="font-size: 1.1rem; line-height: 1.8;">
-                If Connectlift Mate has made your LinkedIn experience better, please take a moment to share it with
+                If ConnectLiftMate has made your LinkedIn experience better, please take a moment to share it with
                 someone who might need it too.
                 <br><br>
                 A simple share can help someone save time, reduce stress, or even find an opportunity faster.
             </p>
+
+            <!-- Social Share Buttons -->
             <div style="margin-top: 20px;">
                 <a href="https://twitter.com/intent/tweet?text=I%20just%20found%20a%20free%20Chrome%20extension%20called%20ConnectLiftMate%20that%20simplifies%20LinkedIn%20connection%20notes%20and%20message%20templates.%20No%20login.%20No%20privacy%20issues.%20Try%20it%20now%20👉%20https://connectliftmate.com/"
                     target="_blank"
-                    style="display: inline-block; margin: 8px; padding: 10px 20px; background-color: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none;">🐦
-                    Share on Twitter</a>
+                    style="display: inline-block; margin: 8px; padding: 10px 20px; background-color: #3b5bdb; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                    🔗 Share on X (Twitter)
+                </a>
 
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://connectliftmate.com"
                     target="_blank"
-                    style="display: inline-block; margin: 8px; padding: 10px 20px; background-color: #0a66c2; color: #fff; border-radius: 8px; text-decoration: none;">🔗
-                    Share on LinkedIn</a>
+                    style="display: inline-block; margin: 8px; padding: 10px 20px; background-color: #0a66c2; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                    🔗 Share on LinkedIn
+                </a>
+            </div>
+
+            <!-- Copy Text Section -->
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem;">Or copy and share this message with
+                    a friend:</p>
+                <textarea id="shareText" readonly
+                    style="width: 90%; max-width: 800px; height: 90px; padding: 1rem; border: 1px solid #ccc; border-radius: 12px; background: #f8f9ff; font-size: 0.95rem; color: #333; margin-bottom: 1rem; font-family: Inter, sans-serif;">
+Hey! 👋 I just found this amazing Chrome Extension called ConnectLiftMate — it helps you auto-insert LinkedIn connection notes and messages in one click. No login. No tracking. Just helpful ✨ Try it here: https://connectliftmate.com
+          </textarea>
+                <br>
+                <button onclick="copyShareText()"
+                    style="padding: 10px 18px; background-color: #3b5bdb; color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                    📋 Copy Message
+                </button>
+                <div id="copyStatus" style="margin-top: 0.8rem; font-size: 0.95rem; color: green; display: none;">
+                    ✅ Copied to clipboard!
+                </div>
+
+                <!-- Optional Email Share -->
+                <div style="margin-top: 1.5rem;">
+                    <a href="mailto:?subject=Check out this LinkedIn Extension&body=Hey, check out ConnectLiftMate – a free Chrome Extension that helps auto-insert LinkedIn notes/messages and save tons of time. Try it here: https://connectliftmate.com"
+                        style="text-decoration: none; background-color: #3b5bdb; color: #fff; padding: 10px 18px; border-radius: 8px; display: inline-block; margin-top: 10px; font-weight: 600;">
+                        📧 Share via Email
+                    </a>
+                </div>
             </div>
         </div>
     </section>
-    <h2 class="section-heading">✨ A Note From the Creators </h2>
-    <section class="features" id="why-we-built">
+
+    <!-- 🔥 Script for Copy-to-Clipboard -->
+    <script>
+        function copyShareText() {
+            const text = document.getElementById("shareText").value;
+            navigator.clipboard.writeText(text).then(() => {
+                const status = document.getElementById("copyStatus");
+                status.style.display = "block";
+                setTimeout(() => {
+                    status.style.display = "none";
+                }, 2000);
+            });
+        }
+    </script>
+
+
+    <h2 class="section-heading">✨ A Note From the Creators</h2>
+    <section class="features" id="note-from-creators">
         <div class="feature-card" style="grid-column: span 2; max-width: 100%; text-align: center;">
             <p style="font-size: 1.1rem; line-height: 1.8;">
-                We didn’t build this tool for fame or money. We built it because we believe small things can make
-                big
-                differences.
+                We didn’t build this tool for fame, money, or attention.<br><br>
+                We built ConnectLiftMate because we know how exhausting job searching, networking, and sending
+                connection messages can feel — especially when you’re juggling so many things at once.
                 <br><br>
-                If this helped you in any way, please share it forward someone else might be silently struggling
-                too.
+                This extension is our small way of helping — a tool made with care, so others can connect easier, feel
+                less frustrated, and focus on what really matters: real human connections.
                 <br><br>
+                If this has helped you even a little, we hope you’ll pay it forward — because someone out there might be
+                silently struggling too.
             </p>
         </div>
     </section>
-    <footer>
-        <div>🔒<a href="https://privacy.connectliftmate.com/" target="_blank">Privacy Policy</a>|<a
-                href="https://tools.connectliftmate.com/" target="_blank">Tools</a>|<a
-                href="https://tools.connectliftmate.com/support/" target="_blank">Support</a>|<a
-                href="https://connectliftmate.com/tutorial/" target="_blank">Tutorial </a>|<a
-                href="https://tools.connectliftmate.com/faq/" target="_blank">Faq's </a>|<a
-                href="mailto:support@connectliftmate.com">Contact Us</a></div>
-        <div class="footer-note">© 2025 ConnectLiftMate — Built with care, not for profit 💙 </div>
-    </footer>
+    <h2 class="section-heading">❓ Frequently Asked Questions</h2>
+    <section class="features" id="faq">
+        <div class="feature-card faq-card" onclick="toggleFaq(this)">
+            <div class="faq-question">Is it really free?</div>
+            <div class="faq-answer">Yes, completely free. No subscriptions, no upsells. ConnectLiftMate is built to
+                help, not profit.</div>
+        </div>
+        <div class="feature-card faq-card" onclick="toggleFaq(this)">
+            <div class="faq-question">Do I need to log in to use it?</div>
+            <div class="faq-answer">No login required at all. It works straight from your browser — simple and safe.
+            </div>
+        </div>
+        <div class="feature-card faq-card" onclick="toggleFaq(this)">
+            <div class="faq-question">Is my data stored or tracked?</div>
+            <div class="faq-answer">No. Everything stays local in your browser. We don’t collect or track anything.
+            </div>
+        </div>
+        <div class="feature-card faq-card" onclick="toggleFaq(this)">
+            <div class="faq-question">Can I export or back up my notes?</div>
+            <div class="faq-answer">Yes. You can export and import your saved notes/templates anytime with one click.
+            </div>
+        </div>
+        <div class="feature-card faq-card" onclick="toggleFaq(this)">
+            <div class="faq-question">Where can I get support or ask questions?</div>
+            <div class="faq-answer">
+                You can reach us via the <a href="https://tools.connectliftmate.com/support" target="_blank">Support
+                    Page</a> or email us directly at
+                <a href="mailto:support@connectliftmate.com">support@connectliftmate.com</a>.
+            </div>
+        </div>
+    </section>
+    <a href="#top" class="back-to-top" id="backToTopBtn" title="Back to Top">⬆</a>
+    <a href="https://tools.connectliftmate.com/support" target="_blank" class="support-float-btn" title="Need help?">
+        💬 Need Help?
+    </a>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const backToTopBtn = document.getElementById("backToTopBtn");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 100) {
+                    backToTopBtn.style.display = "block";
+                } else {
+                    backToTopBtn.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
+<footer>
+    <div>🔒<a href="https://privacy.connectliftmate.com/" target="_blank">Privacy Policy</a>|<a
+            href="https://tools.connectliftmate.com/" target="_blank">Tools</a>|<a
+            href="https://tools.connectliftmate.com/support/" target="_blank">Support</a>|<a
+            href="https://connectliftmate.com/tutorial/" target="_blank">Tutorial </a>|<a
+            href="https://tools.connectliftmate.com/faq/" target="_blank">Faq's </a>|<a
+            href="mailto:support@connectliftmate.com">Contact Us</a></div>
+    <a href="..." target="_blank" rel="noopener noreferrer">...</a>
+    <div class="footer-note">© 2025 ConnectLiftMate — Built with care, not for profit 💙 </div>
+</footer>
 
 </html>
