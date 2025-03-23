@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Templates - ConnectLiftMate</title>
+    <link rel="icon" type="image/png" href="../../assets/logo.png">
+    <meta name="theme-color" content="#3b5bdb">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -122,9 +126,9 @@
             opacity: 1;
             transform: translateY(0);
         }
-
     </style>
 </head>
+
 <body>
 
     <header>
@@ -137,62 +141,78 @@
         <div class="template-card">
             <div class="template-header"><i class="fa-solid fa-user-plus"></i> Connection Request</div>
             <div class="message">Hi [Name], I came across your profile and was impressed! Would love to connect.</div>
-            <div class="message">Hey [Name], I see we have mutual connections in [Industry/Company]. Let’s connect!</div>
+            <div class="message">Hey [Name], I see we have mutual connections in [Industry/Company]. Let’s connect!
+            </div>
             <div class="message">Hello [Name], your work at [Company] is inspiring. I’d love to stay in touch!</div>
             <div class="message">Hi [Name], I admire your experience in [Field]. Let’s connect and exchange ideas!</div>
-            <div class="message">Hi [Name], I’m building my network in [Industry] and would love to connect with you!</div>
+            <div class="message">Hi [Name], I’m building my network in [Industry] and would love to connect with you!
+            </div>
         </div>
 
         <!-- Message to a Recruiter -->
         <div class="template-card">
             <div class="template-header"><i class="fa-solid fa-briefcase"></i> Message to a Recruiter</div>
-            <div class="message">Hi [Recruiter's Name], I’m exploring opportunities in [Field] and would love to connect!</div>
-            <div class="message">Hello [Recruiter's Name], I admire the hiring work you do at [Company]. Would love to connect!</div>
-            <div class="message">Hi [Recruiter], I’d love to learn more about [Role] opportunities at [Company]. Let’s connect!</div>
-            <div class="message">Hey [Recruiter], I’m actively looking for new roles in [Field]. Would love to stay in touch!</div>
-            <div class="message">Hi [Recruiter], I see you’re hiring for [Role]. I’m interested and would love to connect!</div>
+            <div class="message">Hi [Recruiter's Name], I’m exploring opportunities in [Field] and would love to
+                connect!</div>
+            <div class="message">Hello [Recruiter's Name], I admire the hiring work you do at [Company]. Would love to
+                connect!</div>
+            <div class="message">Hi [Recruiter], I’d love to learn more about [Role] opportunities at [Company]. Let’s
+                connect!</div>
+            <div class="message">Hey [Recruiter], I’m actively looking for new roles in [Field]. Would love to stay in
+                touch!</div>
+            <div class="message">Hi [Recruiter], I see you’re hiring for [Role]. I’m interested and would love to
+                connect!</div>
         </div>
 
         <!-- Referral Request -->
         <div class="template-card">
             <div class="template-header"><i class="fa-solid fa-user-check"></i> Referral Request</div>
-            <div class="message">Hi [Name], I admire your work at [Company] and would love to ask about a referral.</div>
+            <div class="message">Hi [Name], I admire your work at [Company] and would love to ask about a referral.
+            </div>
             <div class="message">Hello [Name], I’m interested in [Company]. Would you be open to a referral chat?</div>
-            <div class="message">Hi [Name], I saw you work at [Company]. Would love to know about the hiring process!</div>
-            <div class="message">Hey [Name], I’d love your insights on working at [Company] and potential referrals!</div>
-            <div class="message">Hi [Name], I’m applying for [Role] at [Company]. Would appreciate any guidance or referral!</div>
+            <div class="message">Hi [Name], I saw you work at [Company]. Would love to know about the hiring process!
+            </div>
+            <div class="message">Hey [Name], I’d love your insights on working at [Company] and potential referrals!
+            </div>
+            <div class="message">Hi [Name], I’m applying for [Role] at [Company]. Would appreciate any guidance or
+                referral!</div>
         </div>
 
         <!-- Networking Message -->
         <div class="template-card">
             <div class="template-header"><i class="fa-solid fa-comments"></i> Networking Message</div>
-            <div class="message">Hey [Name], I noticed we're both in [Industry]! Would love to connect and exchange insights.</div>
-            <div class="message">Hi [Name], your experience in [Field] is inspiring! Let’s connect and share knowledge.</div>
-            <div class="message">Hello [Name], I see we both attended [University]! Would love to connect and chat.</div>
+            <div class="message">Hey [Name], I noticed we're both in [Industry]! Would love to connect and exchange
+                insights.</div>
+            <div class="message">Hi [Name], your experience in [Field] is inspiring! Let’s connect and share knowledge.
+            </div>
+            <div class="message">Hello [Name], I see we both attended [University]! Would love to connect and chat.
+            </div>
             <div class="message">Hi [Name], I’d love to connect and hear more about your work at [Company].</div>
-            <div class="message">Hey [Name], I’m expanding my network in [Industry] and would love to stay connected!</div>
+            <div class="message">Hey [Name], I’m expanding my network in [Industry] and would love to stay connected!
+            </div>
         </div>
     </div>
 
     <a href="../../" class="back-button"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const templates = document.querySelectorAll(".template-card");
+        document.addEventListener("DOMContentLoaded", function () {
+            const templates = document.querySelectorAll(".template-card");
 
-        function fadeInOnScroll() {
-            templates.forEach((card) => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight - 50) {
-                    card.classList.add("visible");
-                }
-            });
-        }
+            function fadeInOnScroll() {
+                templates.forEach((card) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    if (cardTop < window.innerHeight - 50) {
+                        card.classList.add("visible");
+                    }
+                });
+            }
 
-        window.addEventListener("scroll", fadeInOnScroll);
-        fadeInOnScroll();
-    });
+            window.addEventListener("scroll", fadeInOnScroll);
+            fadeInOnScroll();
+        });
     </script>
 
 </body>
+
 </html>
