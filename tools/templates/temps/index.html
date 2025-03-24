@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Templates Library – Connectlift Mate</title>
+    <meta name="description"
+        content="Choose from 100+ LinkedIn templates – notes, messages, and Boolean search queries. Select and download your favorites as JSON.">
+    <link rel="icon" href="../assets/logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #edf1ff, #dbe6ff);
+            padding: 3rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: #fff;
+            max-width: 960px;
+            width: 100%;
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 45px rgba(85, 110, 255, 0.1);
+            border: 1px solid #c9d7ff;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            color: #2a2a40;
+        }
+
+        .brand {
+            color: #3b5bdb;
+            font-weight: 700;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filters button {
+            background: #3b5bdb;
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .filters button:hover {
+            background: #2f49b8;
+        }
+
+        .template-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .template-card {
+            background: #f8faff;
+            border: 1px solid #dbe4ff;
+            padding: 1.2rem 1rem;
+            border-left: 6px solid #3b5bdb;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .template-card input[type="checkbox"] {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            transform: scale(1.2);
+        }
+
+        .template-card p {
+            font-size: 0.95rem;
+            color: #2a2a40;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .template-card .type-tag {
+            font-size: 0.75rem;
+            color: #fff;
+            background: #3b5bdb;
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .actions button {
+            background: #3b5bdb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 1rem;
+        }
+
+        .actions button:hover {
+            background: #2f49b8;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Select & Download <span class="brand">Templates</span></h1>
+        <p class="subtitle">Pick your favorite notes, messages or Boolean searches – export as a JSON for easy import
+            into the extension.</p>
+
+        <div class="filters">
+            <button onclick="filterTemplates('all')">All</button>
+            <button onclick="filterTemplates('note')">Connection Notes</button>
+            <button onclick="filterTemplates('message')">Message Templates</button>
+            <button onclick="filterTemplates('boolean')">Boolean Searches</button>
+        </div>
+
+        <div class="template-list" id="templateList">
+            <!-- Template cards will be injected by JavaScript -->
+        </div>
+
+        <div class="actions">
+            <button onclick="selectAll()">Select All</button>
+            <button onclick="clearAll()">Clear Selection</button>
+            <button onclick="downloadSelected()">Download Selected as JSON</button>
+        </div>
+
+        <div class="footer">
+            © 2025 <span class="brand">Connectlift Mate</span>. All rights reserved.
+        </div>
+    </div>
+
+    <script>
+        const templates = [
+            // Sample Data: You can replace these or expand to 100
+            { id: 1, type: "note", text: "Hi {{name}}, I came across your profile and wanted to connect!" },
+            { id: 2, type: "note", text: "Hey {{name}}, your work really stood out. Let’s connect!" },
+            { id: 3, type: "message", text: "Thanks for accepting my request, looking forward to networking with you!" },
+            { id: 4, type: "message", text: "Hi {{name}}, I'm currently exploring new opportunities and would love to connect." },
+            { id: 5, type: "boolean", text: "((data analyst) OR (business analyst)) AND (SQL OR Python)" },
+            { id: 6, type: "boolean", text: "(marketing AND (SEO OR content)) NOT intern" },
+            // Add more up to 100...
+        ];
+
+        function renderTemplates(filter = 'all') {
+            const list = document.getElementById('templateList');
+            list.innerHTML = '';
+            templates.forEach(template => {
+                if (filter === 'all' || filter === template.type) {
+                    const card = document.createElement('div');
+                    card.className = 'template-card';
+                    card.innerHTML = `
+            <input type="checkbox" data-id="${template.id}">
+            <p>${template.text}</p>
+            <span class="type-tag">${template.type.charAt(0).toUpperCase() + template.type.slice(1)}</span>
+          `;
+                    list.appendChild(card);
+                }
+            });
+        }
+
+        function filterTemplates(type) {
+            renderTemplates(type);
+        }
+
+        function selectAll() {
+            document.querySelectorAll('.template-card input[type="checkbox"]').forEach(cb => cb.checked = true);
+        }
+
+        function clearAll() {
+            document.querySelectorAll('.template-card input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+
+        function downloadSelected() {
+            const selectedIds = Array.from(document.querySelectorAll('.template-card input[type="checkbox"]:checked')).map(cb => parseInt(cb.getAttribute('data-id')));
+            const selectedTemplates = templates.filter(t => selectedIds.includes(t.id));
+
+            // Match your extension's import format
+            const jsonOutput = selectedTemplates.map(t => ({
+                id: Date.now() + Math.floor(Math.random() * 10000),
+                type: t.type,
+                text: t.text
+            }));
+
+            const blob = new Blob([JSON.stringify(jsonOutput, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "connectliftmate-templates.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        renderTemplates();
+    </script>
+</body>
+
+</html>
