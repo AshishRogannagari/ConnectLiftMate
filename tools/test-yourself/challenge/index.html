@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectlift mate | 1 - Minute Challenge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.10.2/build/player/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <style>
+        :root {
+            --primary: #3b5bdb;
+            --bg-color: #f5f8ff;
+            --card-bg: #fff;
+            --card-border: #3b5bdb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(59, 91, 219, 0.1);
+            position: relative;
+            text-align: center;
+        }
+
+        /* Adjusted Lottie animation size */
+        dotlottie-player {
+            margin: 20px auto;
+            width: 200px;
+            /* Reduced width */
+            height: 200px;
+            /* Reduced height */
+        }
+
+
+        /* Adjusted the position of the Lottie animation */
+        dotlottie-player {
+            margin: 20px auto;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: var(--primary);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .connectlift-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtext {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 50px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+            gap: 14px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 18px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 170px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(59, 91, 219, 0.2);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 14.5px;
+            color: #555;
+        }
+
+        .result-box {
+            display: none;
+            padding: 32px;
+            margin-top: 30px;
+            background: linear-gradient(to right, #e8f0ff, #f4f7ff);
+            border-left: 5px solid var(--primary);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .result-heading {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .result-subtext {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .result-btn {
+            background: #fff;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 40px;
+            padding: 10px 24px;
+            font-size: 15px;
+            min-width: 180px;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .result-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <!-- Connectlift Mate Title -->
+        <div class="connectlift-title">Connectlift mate</div>
+
+        <!-- Lottie Animation placed between the titles -->
+        <dotlottie-player src="https://lottie.host/bd027368-274e-4347-8122-519584d6d9f5/RiEa1whjos.lottie"
+            background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
+
+        <h1>💬 1 - Minute Challenge</h1>
+        <p class="subtext">Choose the option that feels most like you. No pressure, just honesty.</p>
+
+        <div class="card-grid">
+            <div class="card" onclick="cardClick(this); redirectToInstall();">
+                <div class="card-icon">👶</div>
+                <div class="card-title">I'm new / I don’t know much</div>
+                <div class="card-desc">No worries. Install & watch the tutorial — we’ve got you.</div>
+            </div>
+            <div class="card" onclick="cardClick(this); showResult('need');">
+                <div class="card-icon">😩</div>
+                <div class="card-title">I'm copy-pasting & switching tabs</div>
+                <div class="card-desc">That's tiring! Connectlift Mate will simplify everything.</div>
+            </div>
+            <div class="card" onclick="cardClick(this); showResult('confused');">
+                <div class="card-icon">🤔</div>
+                <div class="card-title">I know basics, but want better tools</div>
+                <div class="card-desc">You're smart. Let's take your workflow one level higher.</div>
+            </div>
+            <div class="card" onclick="cardClick(this); showResult('pro');">
+                <div class="card-icon">💼</div>
+                <div class="card-title">I'm already efficient</div>
+                <div class="card-desc">Awesome! Check out our upcoming features & privacy benefits.</div>
+            </div>
+        </div>
+
+        <div class="result-box" id="resultBox"></div>
+    </div>
+
+    <script>
+        // Card click effect
+        function cardClick(card) {
+            card.classList.add('clicked');
+            setTimeout(() => card.classList.remove('clicked'), 300);
+        }
+
+        // First option redirects to install
+        function redirectToInstall() {
+            window.location.href = "https://chrome.google.com/webstore/detail/connectlift-mate/YOUR_EXTENSION_ID";
+        }
+
+        // Show result based on user choice
+        function showResult(type) {
+            const box = document.getElementById("resultBox");
+            let html = '';
+
+            if (type === 'need') {
+                html = `
+        <h3 class="result-heading">✅ You really need this!</h3>
+        <p class="result-subtext">You're doing things manually, and it's draining your time. Connectlift Mate is built to simplify your life on LinkedIn.</p>
+        <div class="result-actions">
+          <a class="result-btn" href="https://chrome.google.com/webstore/detail/connectlift-mate/YOUR_EXTENSION_ID" target="_blank">🚀 Install Now</a>
+          <a class="result-btn" href="https://connectliftmate.com/tutorial" target="_blank">🎥 Watch Tutorial</a>
+        </div>`;
+            } else if (type === 'confused') {
+                html = `
+        <h3 class="result-heading">🤝 You're almost there!</h3>
+        <p class="result-subtext">You're aware, and that's a great start. Connectlift Mate will help you work smarter — not harder.</p>
+        <div class="result-actions">
+          <a class="result-btn" href="https://chrome.google.com/webstore/detail/connectlift-mate/YOUR_EXTENSION_ID" target="_blank">Try Now</a>
+          <a class="result-btn" href="https://connectliftmate.com/tutorial" target="_blank">Watch Tutorial</a>
+        </div>`;
+            } else if (type === 'pro') {
+                html = `
+        <h3 class="result-heading">👏 You're already doing great!</h3>
+        <p class="result-subtext">But if you want to explore privacy-first workflows, productivity tools, and upcoming features — you’re in for a treat.</p>
+        <div class="result-actions">
+          <a class="result-btn" href="https://connectliftmate.com/privacy" target="_blank">🔐 Privacy Promise</a>
+          <a class="result-btn" href="https://connectliftmate.com/resources/why-we-built" target="_blank">💡 Why We Built This</a>
+          <a class="result-btn" href="https://chrome.google.com/webstore/detail/connectlift-mate/YOUR_EXTENSION_ID" target="_blank">Install Anyway</a>
+          <a class="result-btn" href="https://connectliftmate.com/resources" target="_blank">🔭 Explore Features</a>
+        </div>`;
+            }
+
+            document.querySelector(".card-grid").style.display = "none";
+            box.innerHTML = html;
+            box.style.display = "block";
+        }
+    </script>
+</body>
+
+</html>
