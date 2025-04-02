@@ -42,28 +42,25 @@
   <script>
     const SUPABASE_URL = "https://mqcksmqlygymvdwklxrv.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xY2tzbXFseWd5bXZkd2tseHJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NjEyNDQsImV4cCI6MjA1OTAzNzI0NH0.VavlvV3XAjqiqp7BReMl6nQGdjT9TFYyE7h1FFP9hbQ";
-    const EXTENSION_ID = "nfjhhcognmdajhkmmfblfholcableopc";
     const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+  
     const apiKeyInput = document.getElementById("apiKeyInput");
     const continueBtn = document.getElementById("continue-btn");
     const doneMsg = document.getElementById("done-message");
-
-    // Extract redirect URL (for WebAuthFlow)
+  
     const urlParams = new URLSearchParams(window.location.search);
     const finalRedirect = urlParams.get("redirect");
-
+  
     continueBtn.addEventListener("click", () => {
       const apiKey = apiKeyInput.value.trim();
-
+  
       if (!apiKey || !apiKey.startsWith("gsk_")) {
         alert("Please enter a valid Groq API key (starts with gsk_)");
         return;
       }
-
-      // Store the API key temporarily in URL (safer than storage for this flow)
+  
       const redirectWithKey = `${finalRedirect}?apiKey=${encodeURIComponent(apiKey)}`;
-
+  
       client.auth.signInWithOAuth({
         provider: "google",
         options: {
@@ -71,14 +68,13 @@
         }
       });
     });
-
-    // After redirect from Google login, handle session + send to extension
+  
     client.auth.getSession().then(({ data: { session } }) => {
       const userEmail = session?.user?.email;
       const apiKey = new URLSearchParams(window.location.search).get("apiKey");
-
+  
       if (userEmail && apiKey) {
-        // Save email to Supabase table
+        // Save to Supabase
         fetch(`${SUPABASE_URL}/rest/v1/users`, {
           method: "POST",
           headers: {
@@ -89,25 +85,23 @@
           },
           body: JSON.stringify({ email: userEmail })
         });
-
-        // Send email + API key to the extension
-        chrome.runtime.sendMessage(EXTENSION_ID, {
-          type: "onboarding_data",
+  
+        // ✅ Send data to extension popup using postMessage
+        window.opener?.postMessage({
+          source: "ConnectLiftMate",
           email: userEmail,
           apiKey
-        }, (response) => {
-          console.log("📤 Sent to extension:", response);
-        });
-
-        // Show done message
+        }, "*");
+  
+        // 🎉 UI success
         doneMsg.style.display = "block";
         apiKeyInput.style.display = "none";
         continueBtn.style.display = "none";
-
-        // Auto-close after short delay
+  
         setTimeout(() => window.close(), 1500);
       }
     });
   </script>
+  
 </body>
 </html>
