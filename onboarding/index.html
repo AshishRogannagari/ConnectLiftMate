@@ -90,7 +90,13 @@
         });
 
         // Send to Chrome extension
-        window.opener?.postMessage({ email: userEmail, apiKey }, EXTENSION_ORIGIN);
+        chrome.runtime.sendMessage("nfjhhcognmdajhkmmfblfholcableopc", {
+  type: "onboarding_data",
+  email: userEmail,
+  apiKey: apiKey
+}, (response) => {
+  console.log("✅ Extension responded:", response);
+});
 
         // Show success message
         doneMsg.style.display = "block";
