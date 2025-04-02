@@ -59,7 +59,14 @@
       }
 
       // Use sessionStorage to persist temporarily across redirect
-      sessionStorage.setItem("groq_api_key", apiKey);
+      const redirectWithKey = `https://ashishrogannagari.github.io/ConnectLiftMate/?apiKey=${encodeURIComponent(apiKey)}`;
+
+client.auth.signInWithOAuth({
+  provider: "google",
+  options: {
+    redirectTo: redirectWithKey
+  }
+});
       console.log("💾 Saved API key in sessionStorage");
 
       // Sign in with redirect back to LANDING page

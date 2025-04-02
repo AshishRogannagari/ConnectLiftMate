@@ -607,6 +607,29 @@
                 }, 2000);
             });
         }
+
+        const urlParams = new URLSearchParams(window.location.search);
+const apiKey = urlParams.get("apiKey");
+
+supabase.auth.getSession().then(({ data: { session } }) => {
+  const userEmail = session?.user?.email;
+
+  if (userEmail && apiKey) {
+    chrome.runtime.sendMessage("nfjhhcognmdajhkmmfblfholcableopc", {
+      type: "onboarding_data",
+      email: userEmail,
+      apiKey
+    }, (res) => {
+      console.log("✅ Sent to extension:", res);
+    });
+
+    // Clean URL to remove the query param (optional)
+    history.replaceState({}, document.title, "/ConnectLiftMate/");
+
+    setTimeout(() => window.close(), 1500);
+  }
+});
+
     </script>
 
 
