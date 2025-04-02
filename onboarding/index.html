@@ -42,7 +42,7 @@
   <script>
     const SUPABASE_URL = "https://mqcksmqlygymvdwklxrv.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xY2tzbXFseWd5bXZkd2tseHJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NjEyNDQsImV4cCI6MjA1OTAzNzI0NH0.VavlvV3XAjqiqp7BReMl6nQGdjT9TFYyE7h1FFP9hbQ";
-    const EXTENSION_ORIGIN = "chrome-extension://nfjhhcognmdajhkmmfblfholcableopc";
+    const EXTENSION_ID = "nfjhhcognmdajhkmmfblfholcableopc";
 
     const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -50,7 +50,6 @@
     const continueBtn = document.getElementById("continue-btn");
     const doneMsg = document.getElementById("done-message");
 
-    // ✅ Step 1: Continue → save API key + trigger Google login
     continueBtn.addEventListener("click", () => {
       const apiKey = apiKeyInput.value.trim();
 
@@ -59,17 +58,23 @@
         return;
       }
 
+      // Save key temporarily
       localStorage.setItem("groq_api_key", apiKey);
+      console.log("➡️ Triggering signInWithOAuth with redirect to GitHub page");
 
       client.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "https://ashishrogannagari.github.io/ConnectLiftMate/"
+          redirectTo: "https://ashishrogannagari.github.io/ConnectLiftMate/onboarding/"
         }
+      }).then(res => {
+        console.log("✅ Supabase response", res);
+      }).catch(err => {
+        console.error("❌ Sign-in failed", err);
       });
     });
 
-    // ✅ Step 2: After redirect → check session + send to extension
+    // Wait for session after redirect
     client.auth.getSession().then(({ data: { session } }) => {
       const userEmail = session?.user?.email;
       const apiKey = localStorage.getItem("groq_api_key");
@@ -77,7 +82,7 @@
       if (userEmail && apiKey) {
         console.log("✅ Signed in as:", userEmail);
 
-        // Save to Supabase users table
+        // Save email to Supabase
         fetch(`${SUPABASE_URL}/rest/v1/users`, {
           method: "POST",
           headers: {
@@ -89,25 +94,24 @@
           body: JSON.stringify({ email: userEmail })
         });
 
-        // Send to Chrome extension
-        chrome.runtime.sendMessage("nfjhhcognmdajhkmmfblfholcableopc", {
-  type: "onboarding_data",
-  email: userEmail,
-  apiKey: apiKey
-}, (response) => {
-  console.log("✅ Extension responded:", response);
-});
+        // Send to extension
+        chrome.runtime.sendMessage(EXTENSION_ID, {
+          type: "onboarding_data",
+          email: userEmail,
+          apiKey: apiKey
+        }, (response) => {
+          console.log("✅ Sent to extension, response:", response);
+        });
 
-        // Show success message
+        // Cleanup + message
         doneMsg.style.display = "block";
         apiKeyInput.style.display = "none";
         continueBtn.style.display = "none";
-
-        // Cleanup
         localStorage.removeItem("groq_api_key");
 
-        // ✅ Auto-close tab after short delay
         setTimeout(() => window.close(), 1500);
+      } else {
+        console.warn("🚫 No session or API key found.");
       }
     });
   </script>
