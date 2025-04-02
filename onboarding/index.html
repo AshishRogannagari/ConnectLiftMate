@@ -32,7 +32,7 @@
   <h2>🚀 Set up ConnectLiftMate</h2>
   <p>Paste your Groq API key and continue with Google:</p>
 
-  <input type="text" id="apiKeyInput" placeholder="Paste your Groq API key (gsk_...)" />
+  <input type="text" id="apiKeyInput" placeholder="Paste your Groq API key (sk-...)" />
   <button id="continue-btn">✅ Continue with Google</button>
 
   <div id="done-message">
@@ -50,36 +50,34 @@
     const continueBtn = document.getElementById("continue-btn");
     const doneMsg = document.getElementById("done-message");
 
-    // ✅ Step 1: User clicks Continue
+    // ✅ Step 1: Continue → save API key + trigger Google login
     continueBtn.addEventListener("click", () => {
       const apiKey = apiKeyInput.value.trim();
-      console.log("✅ Continue button clicked");
 
-      if (!apiKey || !apiKey.startsWith("gsk_")) {
-        alert("Please enter a valid Groq API key (starts with gsk_)");
+      if (!apiKey || !apiKey.startsWith("sk-")) {
+        alert("Please enter a valid Groq API key (starts with sk-)");
         return;
       }
 
       localStorage.setItem("groq_api_key", apiKey);
-      console.log("✅ Saved API key to localStorage");
 
       client.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo: window.location.href }
+        options: {
+          redirectTo: "https://ashishrogannagari.github.io/ConnectLiftMate/onboarding/"
+        }
       });
-
-      console.log("✅ Google sign-in triggered");
     });
 
-    // ✅ Step 2: After redirect, check Gmail + stored key
+    // ✅ Step 2: After redirect → check session + send to extension
     client.auth.getSession().then(({ data: { session } }) => {
       const userEmail = session?.user?.email;
       const apiKey = localStorage.getItem("groq_api_key");
 
       if (userEmail && apiKey) {
-        console.log("✅ Authenticated as:", userEmail);
+        console.log("✅ Signed in as:", userEmail);
 
-        // 📤 Save Gmail to Supabase DB
+        // Save to Supabase users table
         fetch(`${SUPABASE_URL}/rest/v1/users`, {
           method: "POST",
           headers: {
@@ -91,16 +89,19 @@
           body: JSON.stringify({ email: userEmail })
         });
 
-        // 📩 Send to Extension
+        // Send to Chrome extension
         window.opener?.postMessage({ email: userEmail, apiKey }, EXTENSION_ORIGIN);
 
-        // ✅ Show success message
+        // Show success message
         doneMsg.style.display = "block";
         apiKeyInput.style.display = "none";
         continueBtn.style.display = "none";
 
-        // 🧹 Clean up
+        // Cleanup
         localStorage.removeItem("groq_api_key");
+
+        // ✅ Auto-close tab after short delay
+        setTimeout(() => window.close(), 1500);
       }
     });
   </script>
