@@ -1,80 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Connectlift Mate Onboarding</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/supabase.min.js"></script>
+  <meta charset="UTF-8">
+  <title>ConnectLiftMate Onboarding</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 2rem;
+      max-width: 480px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
       text-align: center;
     }
-    #api-form, #done-message {
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    #done-message {
       display: none;
-      margin-top: 2rem;
-    }
-    input {
-      padding: 0.5rem;
-      width: 300px;
-      margin-top: 0.5rem;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      margin-top: 1rem;
+      margin-top: 20px;
+      color: green;
     }
   </style>
 </head>
 <body>
 
-  <h2>🚀 Connectlift Mate Setup</h2>
+  <h2>🚀 Set up ConnectLiftMate</h2>
+  <p>Paste your Groq API key and continue with Google:</p>
 
-  <button id="google-signin">🔐 Sign in with Google</button>
-
-  <div id="api-form">
-    <p>Paste your <strong>Groq API key</strong>:</p>
-    <input type="text" id="api-key" placeholder="sk-..." />
-    <br />
-    <button id="submit-api">✅ Complete Setup</button>
-  </div>
+  <input type="text" id="apiKeyInput" placeholder="Paste your Groq API key (gsk_...)" />
+  <button id="continue-btn">✅ Continue with Google</button>
 
   <div id="done-message">
-    <p>✅ You're all set! You can close this tab and use the extension.</p>
+    <p>✅ You're all set! You can now close this tab and use the extension.</p>
   </div>
 
   <script>
     const SUPABASE_URL = "https://mqcksmqlygymvdwklxrv.supabase.co";
     const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xY2tzbXFseWd5bXZkd2tseHJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM0NjEyNDQsImV4cCI6MjA1OTAzNzI0NH0.VavlvV3XAjqiqp7BReMl6nQGdjT9TFYyE7h1FFP9hbQ";
+    const EXTENSION_ORIGIN = "chrome-extension://nfjhhcognmdajhkmmfblfholcableopc";
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const googleBtn = document.getElementById("google-signin");
-    const apiForm = document.getElementById("api-form");
-    const apiInput = document.getElementById("api-key");
-    const submitBtn = document.getElementById("submit-api");
-    const doneMessage = document.getElementById("done-message");
+    const apiKeyInput = document.getElementById("apiKeyInput");
+    const continueBtn = document.getElementById("continue-btn");
+    const doneMsg = document.getElementById("done-message");
 
-    // Step 1: Sign in
-    googleBtn.onclick = async () => {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google"
-      });
-      if (error) {
-        alert("Sign-in failed.");
-        console.error(error);
+    // ✅ Step 1: User clicks Continue
+    continueBtn.addEventListener("click", () => {
+      const apiKey = apiKeyInput.value.trim();
+      console.log("✅ Continue button clicked");
+
+      if (!apiKey || !apiKey.startsWith("gsk_")) {
+        alert("Please enter a valid Groq API key (starts with gsk_)");
+        return;
       }
-    };
 
-    // Step 2: Watch for login state
-    supabase.auth.onAuthStateChange(async (event, session) => {
+      localStorage.setItem("groq_api_key", apiKey);
+      console.log("✅ Saved API key to localStorage");
+
+      client.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.href }
+      });
+
+      console.log("✅ Google sign-in triggered");
+    });
+
+    // ✅ Step 2: After redirect, check Gmail + stored key
+    client.auth.getSession().then(({ data: { session } }) => {
       const userEmail = session?.user?.email;
-      if (userEmail) {
-        console.log("✅ Logged in as:", userEmail);
-        apiForm.style.display = "block";
+      const apiKey = localStorage.getItem("groq_api_key");
 
-        // Save Gmail to Supabase table
-        await fetch(`${SUPABASE_URL}/rest/v1/users`, {
+      if (userEmail && apiKey) {
+        console.log("✅ Authenticated as:", userEmail);
+
+        // 📤 Save Gmail to Supabase DB
+        fetch(`${SUPABASE_URL}/rest/v1/users`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -85,23 +91,16 @@
           body: JSON.stringify({ email: userEmail })
         });
 
-        // Step 3: User submits API key
-        submitBtn.onclick = () => {
-          const apiKey = apiInput.value.trim();
-          if (!apiKey) {
-            alert("Please enter your Groq API key.");
-            return;
-          }
+        // 📩 Send to Extension
+        window.opener?.postMessage({ email: userEmail, apiKey }, EXTENSION_ORIGIN);
 
-          // ✅ Send back to extension via postMessage
-          window.opener?.postMessage({
-            email: userEmail,
-            apiKey: apiKey
-          }, "chrome-extension://nfjhhcognmdajhkmmfblfholcableopc");
+        // ✅ Show success message
+        doneMsg.style.display = "block";
+        apiKeyInput.style.display = "none";
+        continueBtn.style.display = "none";
 
-          apiForm.style.display = "none";
-          doneMessage.style.display = "block";
-        };
+        // 🧹 Clean up
+        localStorage.removeItem("groq_api_key");
       }
     });
   </script>
