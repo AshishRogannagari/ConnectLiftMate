@@ -54,7 +54,7 @@
     continueBtn.addEventListener("click", () => {
       const apiKey = apiKeyInput.value.trim();
 
-      if (!apiKey || !apiKey.startsWith("sk-")) {
+      if (!apiKey || !apiKey.startsWith("gsk_")) {
         alert("Please enter a valid Groq API key (starts with sk-)");
         return;
       }
