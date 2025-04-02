@@ -58,14 +58,15 @@
         return;
       }
 
-      // Save key temporarily
-      localStorage.setItem("groq_api_key", apiKey);
-      console.log("➡️ Triggering signInWithOAuth with redirect to GitHub page");
+      // Use sessionStorage to persist temporarily across redirect
+      sessionStorage.setItem("groq_api_key", apiKey);
+      console.log("💾 Saved API key in sessionStorage");
 
+      // Sign in with redirect back to LANDING page
       client.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: "https://ashishrogannagari.github.io/ConnectLiftMate/onboarding/"
+          redirectTo: "https://ashishrogannagari.github.io/ConnectLiftMate/"
         }
       }).then(res => {
         console.log("✅ Supabase response", res);
@@ -74,15 +75,15 @@
       });
     });
 
-    // Wait for session after redirect
+    // Optional: for debugging if redirected back here (not required)
     client.auth.getSession().then(({ data: { session } }) => {
       const userEmail = session?.user?.email;
-      const apiKey = localStorage.getItem("groq_api_key");
+      const apiKey = sessionStorage.getItem("groq_api_key");
+
+      console.log("📦 Post-login check:", { userEmail, apiKey });
 
       if (userEmail && apiKey) {
-        console.log("✅ Signed in as:", userEmail);
-
-        // Save email to Supabase
+        // Save to Supabase table
         fetch(`${SUPABASE_URL}/rest/v1/users`, {
           method: "POST",
           headers: {
@@ -98,20 +99,17 @@
         chrome.runtime.sendMessage(EXTENSION_ID, {
           type: "onboarding_data",
           email: userEmail,
-          apiKey: apiKey
+          apiKey
         }, (response) => {
-          console.log("✅ Sent to extension, response:", response);
+          console.log("📤 Sent to extension:", response);
         });
 
-        // Cleanup + message
         doneMsg.style.display = "block";
         apiKeyInput.style.display = "none";
         continueBtn.style.display = "none";
-        localStorage.removeItem("groq_api_key");
+        sessionStorage.removeItem("groq_api_key");
 
         setTimeout(() => window.close(), 1500);
-      } else {
-        console.warn("🚫 No session or API key found.");
       }
     });
   </script>
